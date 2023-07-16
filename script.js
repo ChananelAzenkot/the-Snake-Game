@@ -22,16 +22,18 @@ for (let i = 0; i < height; i++) {
 for (let i = 1; i <= height; i++) {
   leftBoundaries.push(i * width);
 }
-
+const theLiveNumber = document.querySelector(".the_live_number");
 const board = document.querySelector(".board");
 const btnS = document.querySelector(".keyForMobile");
 board.style.gridTemplateColumns = `repeat(${width}, 1fr)`;
+theLiveNumber.innerHTML = `<div class="emptyBox"></div>`;
 board.style.display = "none";
 btnS.style.display = "none";
 
 function createBoard() {
   for (let i = 0; i < width * height; i++) {
     const div = document.createElement("div");
+    theLiveNumber.innerHTML = `<div class="emptyBox"></div>`;
     board.style.display = "inline-grid";
     btnS.style.display = "grid";
     board.appendChild(div);
@@ -63,17 +65,20 @@ window.addEventListener("keydown", (ev) => {
     case "ArrowRight":
       move("right");
       break;
-    case "ArrowDown":
-      move("down");
+      case "ArrowDown":
+        move("down");
       break;
     case "ArrowLeft":
       move("left");
       break;
     case "Escape":
+      clearInterval(timerInterval);
       clearInterval(interval);
       break;
   }
 });
+
+
 
 function move(dir) {
   if (isGameOver) {
@@ -151,7 +156,6 @@ function move(dir) {
   startAuto();
 }
 
-
 function startAuto() {
   clearInterval(interval);
   interval = setInterval(() => move(direction), 200);
@@ -180,6 +184,7 @@ function setRandom() {
     document.querySelector(
       ".lives"
     ).textContent = `the lives left is - ${lives}`;
+    theLiveNumber.innerHTML = `<div class="emptyBox"></div>`;
   }
 }
 
@@ -202,14 +207,24 @@ function startTimer() {
   timer = 20;
   timerInterval = setInterval(() => {
     timer--;
+    const minutes = Math.floor(timer / 60);
+    const seconds = timer % 60;
+    const secondsFormatted = seconds < 10 ? `0${seconds}` : seconds;
     document.querySelector(
       ".timer"
-    ).textContent = `The time left is - 00 : ${timer}`;
-    if (timer == 0) {
-      loseLife(); // New logic for losing a life
+    ).textContent = `The time left is - 0${minutes} : ${secondsFormatted}`;
+    if (timer === 0) {
+      loseLife();
       clearInterval(timerInterval);
+      // Handle timer end
     }
   }, 1000);
+}
+
+function continueGame(){
+  isGameOver = false;
+  startAuto();
+  startTimer();
 }
 const livesNumbers = document.querySelector(".the_live_number");
 
@@ -221,6 +236,7 @@ function loseLife() {
     clearInterval(interval);
     clearInterval(timerInterval);
     isGameOver = true;
+    theLiveNumber.innerHTML = `<div class="emptyBox"></div>`;
     livesNumbers.textContent = `You lost a life! Remaining lives - ${lives}`;
     document.querySelector(
       ".lives"
@@ -249,6 +265,7 @@ function loseLife() {
     setTimeout(() => {
       isGameOver = false;
       livesNumbers.textContent = "";
+      theLiveNumber.innerHTML = `<div class="emptyBox"></div>`;
       startAuto();
       startTimer();
     }, 2000);
