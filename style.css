@@ -7,7 +7,7 @@ html {
 body {
     direction: rtl;
     background-image: linear-gradient(to bottom right, #1a88bb, #d5b7b7);
-    padding-bottom: 200px;
+
     text-align: center;
 }
 
@@ -54,16 +54,22 @@ h2{
 }
 
 .snake {
-    background-color: #af5f62;
+    background:linear-gradient(to bottom right, #fbfeaf, #6bc06b);
     filter: drop-shadow(2px 3px 2px #000000);
     border-radius: 15px;
 }
 
 .head {
-    background-color: #00ffd9;
+    background:radial-gradient(#fbfeaf, #ff0000d3);
     filter: drop-shadow(2px 3px 2px #000000);
 }
 
+.keyForMobile{
+    display: none;
+}
+.keyForMobile__personal{
+    display: none;
+}
 .head.up{
     border-radius: 6px 6px 0 0;
 }
@@ -80,15 +86,21 @@ h2{
     border-radius: 0 6px 6px 0;
 }
 
-.blueberry::after{
-    content: '🫐';
+.apple::after{
+    content: '🍎';
     filter: drop-shadow(2px 3px 2px #000000);
     position: relative;
     top: -5px;
     left: -3px;
-    font-size: 13px;
+    font-size: 15px;
 }
 
+.the_live_number{
+    font-size: 20px;
+    font-weight: bold;
+    color: red;
+    text-shadow: 1px 2px 3px black;
+}
 #startButton{
     margin: 16px;
     padding: 8px 16px;
@@ -113,4 +125,110 @@ h2{
     background-color: #38383855;
     color: #ffffff62;
     cursor:disabled;
+}
+
+@media screen and (max-width: 789px){
+
+    body{
+        padding: 0;
+        margin: 0;
+    }
+    .board {
+        display: inline-grid;
+        border-radius: 3px;
+        border: 2px solid;
+        overflow: hidden;
+        background-image: linear-gradient(to bottom right, #d5b7b7, #1a88bb);
+        width: 100%;
+        margin: auto;
+    }
+    .board div {
+        width: 15px;
+        height: 15px;
+    }
+    .snake {
+        background:linear-gradient(to bottom right, #fbfeaf, #6bc06b);
+        filter: drop-shadow(2px 3px 2px #000000);
+        border-radius: 10px;
+    }
+    .head {
+        background:radial-gradient(#fbfeaf, #ff0000d3);
+        filter: drop-shadow(2px 3px 2px #000000);
+    }
+    .head.up{
+        border-radius: 6px 6px 0 0;
+    }
+    .head.down{
+        border-radius: 0 0 6px 6px;
+    }
+    .head.left{
+        border-radius: 6px 0 0 6px;
+    }
+    .head.right{
+        border-radius: 0 6px 6px 0;
+    }
+    .apple::after{
+        content: '🍎';
+        filter: drop-shadow(2px 3px 2px #000000);
+        position: relative;
+        top: -5px;
+        left: -3px;
+        font-size: 12px;
+    }
+    .the_live_number{
+        font-size: 20px;
+        font-weight: bold;
+        color: red;
+        text-shadow: 1px 2px 3px black;
+    }
+    #startButton{
+        margin: 16px;
+        padding: 8px 16px;
+        border-radius: 15px;
+        background-color: #00ffd9;
+        color: #383838;
+        font-weight: bold;
+        font-size: 16px;
+        border: none;
+        cursor: pointer;
+    }
+    #startButton:hover{
+        background-color: #7abe7a;
+        color: #383838;
+        box-shadow: 1px 3px 3px #000000 inset;
+    }
+    #startButton:disabled{
+        background-color: #38383855;
+        color: #ffffff62;
+        cursor:disabled;
+    }
+
+  .keyForMobile {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(2, 1fr);
+      gap: 10px;
+    margin: 16px;
+    padding: 8px 16px;
+    border-radius: 15px;
+    background-image: linear-gradient(to bottom right, #d5b7b7, #1a88bb);
+    justify-content: center;
+    align-items: center;
+    box-shadow: 1px 2px 3px 2px black;
+  }
+.keyForMobile__personal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    background-color: #d5b7b7;
+    border-radius: 15px;
+    box-shadow: 1px 2px 3px 2px black;
+}
+
+.keyForMobile__personal:active {
+    background-color: #1a88bb;
+    color: #d5b7b7;
+    box-shadow: 1px 2px 3px 2px black;
+}
 }

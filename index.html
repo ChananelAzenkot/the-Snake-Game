@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <title>Snake 🐍</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width,maximum-scale=1">
     <link rel="stylesheet" href="style.css">
     <link rel="icon" href="data:,">
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
@@ -17,9 +17,19 @@
     <h2 class="score"></h2>
     <h2 class="timer"></h2>
     <h2 class="lives"></h2>
-    <button id="startButton">click to start !</button>
+    <p class="the_live_number"></p>
+    <button id="startButton">! click to start</button>
     <div class="frame">
         <div class="board"></div>
+        <div class="keyForMobile">
+            <div id="startButtonMobile" class="keyForMobile__personal">▶️</div>
+            <div id="upButton" class="keyForMobile__personal">⬆️</div>
+            <div id="escape-button" class="keyForMobile__personal">⏸</div>
+            <div id="rightButton" class="keyForMobile__personal">➡️</div>
+            <div id="downButton" class="keyForMobile__personal">⬇️</div>
+            <div id="leftButton" class="keyForMobile__personal">⬅️</div>
+
+        </div>
     </div>
     <audio src="Pebble.ogg"></audio>
 </body>
