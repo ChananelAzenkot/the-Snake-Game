@@ -1,3 +1,4 @@
+// give a name to variables
 const height = 20;
 const width = 20;
 let score = -1;
@@ -6,7 +7,6 @@ let timerInterval;
 let isPaused = false;
 const snake = [5, 4, 3, 2, 1, 0];
 let head = snake[0];
-
 let isGameOver = false;
 let direction = "left";
 let interval;
@@ -23,6 +23,8 @@ for (let i = 0; i < height; i++) {
 for (let i = 1; i <= height; i++) {
   leftBoundaries.push(i * width);
 }
+
+//get the elements from the html
 const theLiveNumber = document.querySelector(".the_live_number");
 const board = document.querySelector(".board");
 const btnS = document.querySelector(".keyForMobile");
@@ -30,6 +32,8 @@ board.style.gridTemplateColumns = `repeat(${width}, 1fr)`;
 theLiveNumber.innerHTML = `<div class="emptyBox"></div>`;
 board.style.display = "none";
 btnS.style.display = "none";
+
+// create board of divs snake
 
 function createBoard() {
   for (let i = 0; i < width * height; i++) {
@@ -43,7 +47,7 @@ function createBoard() {
   color();
   setRandom();
 }
-
+// call movement function to start the game and css for the snake
 function color() {
   const divs = board.querySelectorAll("div");
 
@@ -80,7 +84,7 @@ window.addEventListener("keydown", (ev) => {
   }
 });
 
-
+// movement affective on snake
 
 function move(dir) {
   if (isGameOver) {
@@ -119,7 +123,7 @@ function move(dir) {
     head += width;
 
     if (!divs[head]) {
-      loseLife(); // New logic for losing a life
+      loseLife();
       return;
     }
   } else if (dir == "left") {
@@ -130,13 +134,13 @@ function move(dir) {
     head++;
 
     if (leftBoundaries.includes(head)) {
-      loseLife(); // New logic for losing a life
+      loseLife(); 
       return;
     }
   }
 
   if (snake.includes(head)) {
-    loseLife(); // New logic for losing a life
+    loseLife(); 
     return;
   }
 
@@ -159,10 +163,14 @@ function move(dir) {
   startAuto();
 }
 
+// keep the snake moving by itself
+
 function startAuto() {
   clearInterval(interval);
   interval = setInterval(() => move(direction), 100);
 }
+
+// food droop randomly on the board
 
 function setRandom() {
   random = Math.floor(Math.random() * (width * height));
@@ -191,6 +199,8 @@ function setRandom() {
   }
 }
 
+// game over when the snake hit the wall or itself
+
 function gameOver() {
   isGameOver = true;
   clearInterval(interval);
@@ -205,6 +215,8 @@ function gameOver() {
     location.reload();
   }, 200);
 }
+
+// timer for the game and the lives
 
 function startTimer() {
   timerInterval = setInterval(() => {
@@ -223,6 +235,8 @@ function startTimer() {
 }
 
 
+// continue the game after losing a life
+
 function continueGame(){
   isGameOver = false;
   startAuto();
@@ -230,10 +244,12 @@ function continueGame(){
 }
 const livesNumbers = document.querySelector(".the_live_number");
 
+// losing a life
+
 function loseLife() {
-  lives--; // Decrement the number of lives
+  lives--; // 
   if (lives === 0) {
-    gameOver(); // If no more lives, trigger game over
+    gameOver();
   } else {
     clearInterval(interval);
     clearInterval(timerInterval);
@@ -244,13 +260,11 @@ function loseLife() {
       ".lives"
     ).textContent = `the lives left is - ${lives}`;
 
-    // Calculate the center position of the board
     const boardWidth = 20;
     const boardHeight = 20;
     const centerX = Math.floor(boardWidth / 2);
     const centerY = Math.floor(boardHeight / 2);
 
-    // Move the snake to the center of the board
     const headX = Math.floor(snake[0] % boardWidth);
     const headY = Math.floor(snake[0] / boardWidth);
     const deltaX = centerX - headX;
@@ -274,9 +288,10 @@ function loseLife() {
   }
 }
 
+// resume the timer
+
 function resumeTimer() {
   if (!isPaused) {
-    // Timer is not paused, no need to resume
     return;
   }
 
@@ -292,13 +307,14 @@ function resumeTimer() {
     if (timer === 0) {
       loseLife();
       clearInterval(timerInterval);
-      // Handle timer end
+
     }
   }, 1000);
 
-  isPaused = false; // Set isPaused to false since the timer has resumed
+  isPaused = false; 
 }
 
+// buttons for the game on mobile //
 
 const startButton = document.getElementById("startButton");
 startButton.addEventListener("click", () => {
