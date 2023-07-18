@@ -2,6 +2,8 @@ const height = 20;
 const width = 20;
 let score = -1;
 let timer = 20;
+let timerInterval;
+let isPaused = false;
 const snake = [5, 4, 3, 2, 1, 0];
 let head = snake[0];
 
@@ -9,7 +11,6 @@ let isGameOver = false;
 let direction = "left";
 let interval;
 let random;
-let timerInterval;
 let lives = 3; // New variable for lives
 
 const rightBoundaries = [];
@@ -74,6 +75,7 @@ window.addEventListener("keydown", (ev) => {
     case "Escape":
       clearInterval(timerInterval);
       clearInterval(interval);
+      isPaused = true;
       break;
   }
 });
@@ -153,12 +155,13 @@ function move(dir) {
   }
 
   color();
+  resumeTimer();
   startAuto();
 }
 
 function startAuto() {
   clearInterval(interval);
-  interval = setInterval(() => move(direction), 200);
+  interval = setInterval(() => move(direction), 100);
 }
 
 function setRandom() {
@@ -204,7 +207,6 @@ function gameOver() {
 }
 
 function startTimer() {
-  timer = 20;
   timerInterval = setInterval(() => {
     timer--;
     const minutes = Math.floor(timer / 60);
@@ -216,10 +218,10 @@ function startTimer() {
     if (timer === 0) {
       loseLife();
       clearInterval(timerInterval);
-      // Handle timer end
     }
   }, 1000);
 }
+
 
 function continueGame(){
   isGameOver = false;
@@ -271,6 +273,32 @@ function loseLife() {
     }, 2000);
   }
 }
+
+function resumeTimer() {
+  if (!isPaused) {
+    // Timer is not paused, no need to resume
+    return;
+  }
+
+  // Start the timer again
+  timerInterval = setInterval(() => {
+    timer--;
+    const minutes = Math.floor(timer / 60);
+    const seconds = timer % 60;
+    const secondsFormatted = seconds < 10 ? `0${seconds}` : seconds;
+    document.querySelector(
+      ".timer"
+    ).textContent = `The time left is - 0${minutes} : ${secondsFormatted}`;
+    if (timer === 0) {
+      loseLife();
+      clearInterval(timerInterval);
+      // Handle timer end
+    }
+  }, 1000);
+
+  isPaused = false; // Set isPaused to false since the timer has resumed
+}
+
 
 const startButton = document.getElementById("startButton");
 startButton.addEventListener("click", () => {
