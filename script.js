@@ -344,6 +344,10 @@ leftButton.addEventListener("click", () => {
 
 const escapeButton = document.getElementById("escape-button");
 
-escapeButton.addEventListener("click", () => {
+function escapeButtonFunc(){
+  clearInterval(timerInterval);
   clearInterval(interval);
-});
+  isPaused = true;
+}
+
+escapeButton.addEventListener("click", escapeButtonFunc);
