@@ -14,6 +14,7 @@ In this classic Snake game, your goal is to skillfully guide the snake to devour
 - Lives: Start with lives, collisions decrease count.
 - Score: Increase by eating fruits, each worth points.
 - Sound Effects: Enjoy audio for eating fruits, game over.
+- Phone media: Enable seamless compatibility for optimal user experience.
 
 ## How to Play
 
